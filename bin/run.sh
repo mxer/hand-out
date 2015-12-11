@@ -26,7 +26,7 @@ function run_cmd() {
 
 	for ((hid = 0; hid < ${#g_hosts[@]}; ++hid))
 	do
-		des="${g_users[hid]}@${g_hosts[hid]}"
+		des="${g_users[$hid]}@${g_hosts[$hid]}"
 		echo "[INFO] run cmd.sh on ${des} ..."
 		scp cmd.sh ${des}:/tmp/
 		if [ 0 -ne $? ]; then
@@ -48,26 +48,26 @@ function send_files() {
 	local des=
 	for ((hid = 0; hid < hn; ++hid))
 	do
-		if [ x"$g_local_host" == x"${g_hosts[hid]}" ]; then
+		if [ x"$g_local_host" == x"${g_hosts[$hid]}" ]; then
 			continue
 		fi
 
-		des="${g_users[hid]}@${g_hosts[hid]}"
+		des="${g_users[$hid]}@${g_hosts[$hid]}"
 
 		for ((fid = 0; fid < fn; ++fid))
 		do
-			echo "[INFO] send file/directory ${g_path[fid]}/${g_ford[fid]} to $des ..."
-			ssh ${des} "mkdir -p ${g_path[fid]}"
+			echo "[INFO] send file/directory ${g_path[$fid]}/${g_ford[$fid]} to $des ..."
+			ssh ${des} "mkdir -p ${g_path[$fid]}"
 			if [ 0 -ne $? ]; then
-				echo "[ERROR] make full path ${g_path[fid]} on $des meet error!"
+				echo "[ERROR] make full path ${g_path[$fid]} on $des meet error!"
 				return 255
 			fi
-			scp -r ${g_path[fid]}/${g_ford[fid]} ${des}:${g_path}/
+			scp -r ${g_path[$fid]}/${g_ford[$fid]} ${des}:${g_path[$fid]}/
 			if [ 0 -ne $? ]; then
-				echo "[ERROR] send file/directory ${g_path[fid]}/${g_ford[fid]} to $des meet error!"
+				echo "[ERROR] send file/directory ${g_path[$fid]}/${g_ford[$fid]} to $des meet error!"
 				return 255
 			fi
-			echo "[INFO] send file/directory ${g_path[fid]}/${g_ford[fid]} to $des done."
+			echo "[INFO] send file/directory ${g_path[$fid]}/${g_ford[$fid]} to $des done."
 		done
 	done
 }
