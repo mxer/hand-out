@@ -28,7 +28,12 @@ function run_cmd() {
 
 	for ((hid = 0; hid < g_hn; ++hid))
 	do
+		if [ x"$g_local_host" == x"${g_hosts[$hid]}" ]; then
+			continue
+		fi
+
 		des="${g_users[$hid]}@${g_hosts[$hid]}"
+
 		echo "[INFO] run cmd.sh on ${des} ..."
 		scp cmd.sh ${des}:/tmp/
 		if [ 0 -ne $? ]; then
