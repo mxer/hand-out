@@ -26,7 +26,7 @@ g_fn=
 function run_cmd() {
 	local ret=
 
-	for ((hid = 0; hid < g_hd; ++hid))
+	for ((hid = 0; hid < g_hn; ++hid))
 	do
 		des="${g_users[$hid]}@${g_hosts[$hid]}"
 		echo "[INFO] run cmd.sh on ${des} ..."
