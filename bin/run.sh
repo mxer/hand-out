@@ -20,11 +20,13 @@ g_hosts=
 g_users=
 g_ford=
 g_path=
+g_hn=
+g_fn=
 
 function run_cmd() {
 	local ret=
 
-	for ((hid = 0; hid < ${#g_hosts[@]}; ++hid))
+	for ((hid = 0; hid < g_hd; ++hid))
 	do
 		des="${g_users[$hid]}@${g_hosts[$hid]}"
 		echo "[INFO] run cmd.sh on ${des} ..."
@@ -43,10 +45,8 @@ function run_cmd() {
 }
 
 function send_files() {
-	local hn=${#g_hosts[@]}
-	local fn=${#g_ford[@]}
 	local des=
-	for ((hid = 0; hid < hn; ++hid))
+	for ((hid = 0; hid < g_hn; ++hid))
 	do
 		if [ x"$g_local_host" == x"${g_hosts[$hid]}" ]; then
 			continue
@@ -54,7 +54,7 @@ function send_files() {
 
 		des="${g_users[$hid]}@${g_hosts[$hid]}"
 
-		for ((fid = 0; fid < fn; ++fid))
+		for ((fid = 0; fid < g_fn; ++fid))
 		do
 			echo "[INFO] send file/directory ${g_path[$fid]}/${g_ford[$fid]} to $des ..."
 			ssh ${des} "mkdir -p ${g_path[$fid]}"
@@ -90,6 +90,7 @@ function load_files() {
 			print "g_ford["i"]="ford[i];
 			print "g_path["i"]="path[i];
 		}
+		print "g_fn="id;
 	}' ../conf/files)
 }
 
@@ -111,6 +112,7 @@ function load_hosts() {
 			print "g_hosts["i"]="hosts[i];
 			print "g_users["i"]="users[i];
 		}
+		print "g_hn="id;
 	}' ../conf/hosts)
 }
 
