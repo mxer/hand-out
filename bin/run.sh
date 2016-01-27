@@ -35,7 +35,7 @@ function run_cmd() {
 		des="${g_users[$hid]}@${g_hosts[$hid]}"
 
 		echo "[INFO] run cmd.sh on ${des} ..."
-		scp cmd.sh ${des}:/tmp/
+		scp ../conf/cmd.sh ${des}:/tmp/
 		if [ 0 -ne $? ]; then
 			echo "[ERROR] send cmd.sh to $des meet error!"
 			return 255
