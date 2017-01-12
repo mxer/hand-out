@@ -35,16 +35,16 @@ function run_cmd() {
 		des="${g_users[$hid]}@${g_hosts[$hid]}"
 
 		echo "[INFO] run cmd.sh on ${des} ..."
-		scp ../conf/cmd.sh ${des}:/tmp/
+		scp ../conf/cmd.sh ${des}:~/hand-out.cmd.tmp.sh
 		if [ 0 -ne $? ]; then
 			echo "[ERROR] send cmd.sh to $des meet error!"
 			return 255
 		fi
-		ssh $des "sh /tmp/cmd.sh"
+		ssh $des "sh ~/hand-out.cmd.tmp.sh"
 		if [ 0 -ne $? ]; then
 			echo "[ERROR] run cmd.sh on $des meet error!"
 		fi
-		ssh $des "rm -rf /tmp/cmd.sh"
+		ssh $des "rm -rf ~/hand-out.cmd.tmp.sh"
 		echo "[INFO] run cmd.sh on ${des} done."
 	done
 }
